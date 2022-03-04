@@ -1,0 +1,57 @@
+# Array-Leetcode-
+# Problem 31
+# Next Permutation
+
+class Solution {
+    public void nextPermutation(int[] nums) {
+        if(nums==null || nums.length<=1)
+        {
+            return;
+        }
+        
+        int index = -1;
+        for(int i=nums.length-1;i>0;i--)
+        {
+            if(nums[i]>nums[i-1])
+            {
+                index = i-1;
+                break;
+            }
+        }
+        
+        if (index == -1) 
+        {
+            reverse(nums, 0, nums.length - 1);
+            return;
+        }
+        int j=nums.length-1;
+        for(int i=nums.length-1; i>index; i--)
+        {
+            if(nums[index]<nums[i])
+            {
+                j = i;
+                break;
+            }
+        }
+        
+        swap(nums, index, j);
+        reverse(nums, index+1, nums.length-1);
+    }
+    
+    public void swap(int a[],int i, int j)
+    {
+        int  temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+    
+    public void reverse(int a[],int i, int j)
+    {
+        while(i<j)
+        {
+            swap(a,i,j);
+            i++;
+            j--;
+        }
+    }
+}
